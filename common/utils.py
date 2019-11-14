@@ -2,6 +2,8 @@ import os
 import torch
 import torch.nn as nn
 
+import matplotlib.pyplot as plt
+
 # import nltk
 # from nltk.tokenize import word_tokenize
 # from nltk.tokenize import sent_tokenize
@@ -10,9 +12,6 @@ import torch.nn as nn
 
 # import bcolz
 # import pickle
-
-import matplotlib.pyplot as plt
-
 
 
 def check_device():
@@ -24,7 +23,7 @@ def check_device():
 
 def create_emb_layer(weights_matrix, non_trainable=False):
     vocab_size, d_embedding = weights_matrix.shape[0], weights_matrix.shape[1]
-    emb_layer = nn.Embedding(vocab_size, d_embedding) # vocab_size, d_embedding
+    emb_layer = torch.nn.Embedding(vocab_size, d_embedding) # vocab_size, d_embedding
     emb_layer.load_state_dict({'weight': torch.from_numpy(weights_matrix).type(torch.FloatTensor)})
     if non_trainable:
         emb_layer.weight.requires_grad = False
@@ -46,12 +45,6 @@ def save_model(model, optimizer, epoch, train_loss,validation_loss, saved_dir, f
     torch.save(check_point, output_path)
 
 
-def accuracy(pred, target):
-    pred_y = pred >= 0.5
-    num_correct = target.eq(pred_y.float()).sum()
-    accuracy = (num_correct.item() * 100.0 / len(target))
-    return accuracy
-
 '''수정 - train_loss / validation_loss 같이 plot'''
 def plot_results(x, y, z):
     """
@@ -66,3 +59,8 @@ def plot_results(x, y, z):
     plt.title("Loss over epoch")
     plt.show()
 
+def accuracy(pred, target):
+    pred_y = pred >= 0.5
+    num_correct = target.eq(pred_y.float()).sum()
+    accuracy = (num_correct.item() * 100.0 / len(target))
+    return accuracy

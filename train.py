@@ -15,10 +15,16 @@ def define_argparser():
 
     # NOTE : We assume that the dataset is not separated.
     parser = argparse.ArgumentParser(description = 'run argparser')
-    parser.add_argument('--model',required=False,default='bi-lstm', help='select model')
-    parser.add_argument('--data_path',required=False,default = '', help='fake news data path (csv format), must include text, type columns')
-    parser.add_argument('--weights_matrix',required=False,default = 'object/BiLSTM/weights_matrix_840B_300.npy', help='weights matrix path for word embeddings')
+    parser.add_argument('--model',required=False,default='bi-lstm', help='select model => either bi-lstm, cnn, EAN')
     parser.add_argument('--save_dir', required=False, help='where to save model checkpoint')
+
+    parser.add_argument('--weights_matrix', required=False, default='data/weights_matrix_6B_300.npy',
+                        help='weights matrix path for word embeddings')
+    parser.add_argument('--sent_pad_path', required=False, default='data/sent_pad_modified.npy',
+                        help='padded sentence(preprocessed)')
+    parser.add_argument('--label_path', default='data/label_modified.pkl')
+    # parser.add_argument('--data_path', required=False, default='',
+    #                     help='fake news data path (csv format), must include text, type columns')
 
     parser.add_argument('--batch_size', type=int, default= 64)
     parser.add_argument('--n_epochs', type=int, default=10)
@@ -49,6 +55,9 @@ def main(args):
 
     # TO DO
     elif args.model == 'cnn':
+        pass
+
+    elif args.model == 'EAN':
         pass
 
     trainer = Trainer(args)

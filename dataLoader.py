@@ -10,6 +10,10 @@ import pickle
 
 class Dataset_BaseDL(Dataset):
     def __init__(self, data, label):
+        '''
+        :param data: preprocessed data (different accords to model/ .npy format)
+        :param label: same type (.pkl format)
+        '''
         self.x_data = data  # sent_pad / index 화된 data
         self.y_data = label  # 0,1 처리된 data
 
