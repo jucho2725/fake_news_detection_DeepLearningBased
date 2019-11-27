@@ -59,8 +59,4 @@ def plot_results(x, y, z):
     plt.title("Loss over epoch")
     plt.show()
 
-def accuracy(pred, target):
-    pred_y = pred >= 0.5
-    num_correct = target.eq(pred_y.float()).sum()
-    accuracy = (num_correct.item() * 100.0 / len(target))
-    return accuracy
+
