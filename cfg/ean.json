@@ -1,3 +1,7 @@
 {
-
+    "cls_file_name" : 'cls_data_all.pkl',
+    "KG_file_name" : 'KG_to_Context_all_separated.pkl',
+    "context_file_name" : 'context_data_all_separated.pkl',
+    "labels_file_name" : 'labels.pkl',
+    "val_ratio" : 0.1
 }
