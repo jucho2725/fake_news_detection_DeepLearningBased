@@ -8,11 +8,15 @@ import os
 from dataLoader import split_data_EAN
 from common.utils import save_model, plot_results
 from common.metrics import accuracy
+import matplotlib.pyplot as plt
 
 class Trainer:
-    def __init__(self, args):
-        self.args = args
-        self.train_loader, self.val_loader, self.test_loader = split_data_EAN(cls_file_name, KG_file_name, context_file_name, labels_file_name, val_ratio)
+    def __init__(self, cfg):
+        self.train_loader, self.val_loader, self.test_loader = split_data_EAN(cfg['cls_file_name'],
+                                                                              cfg['KG_file_name'],
+                                                                              cfg['context_file_name'],
+                                                                              cfg['labels_file_name'],
+                                                                              cfg['val_ratio'])
 
     def train(self, num_epochs, model, train_loader, val_loader, criterion, optimizer, saved_dir,
               val_every, device, epochs=0, avg_val_loss_list=[], avg_train_loss_list=[]):

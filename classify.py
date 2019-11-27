@@ -35,11 +35,10 @@ def main(args):
         torch.cuda.manual_seed_all(2019)
 
 
-    weights_matrix = np.load(args.weights_matrix, allow_pickle=True) # 새로 저장
-
     if args.model =='bi-lstm':
+        weights_matrix = np.load(args.weights_matrix, allow_pickle=True)  # 새로 저장
         model = BiLSTM(weights_matrix).to(device)
-        model_path = ''
+
 
     elif args.model =='cnn':
         pass
@@ -48,9 +47,12 @@ def main(args):
     state_dict = checkpoint['net']
     model.load_state_dict(state_dict=state_dict)
 
-
     cls = Trainer(args)
     cls.test(model, device)
+
+    """ EAN """
+    # criterion = nn.BCELoss().to(device)
+    # test(model, te_dataloader, criterion, device)
 
 if __name__ =='__main__':
     args =define_argparser()
